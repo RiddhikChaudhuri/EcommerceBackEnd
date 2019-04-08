@@ -46,9 +46,11 @@ public class ItemController {
     }
     
     @PutMapping(value="/updateItemPrice", produces ="application/json")
-    public ResponseEntity<?> updateItemPrice(@PathVariable("id") Integer id){
+    public ResponseEntity<?> updateItemPrice(@PathVariable("id") Integer id) throws Exception{
         
         if(productService.checkProductExists(id))
-           
+           throw new Exception("Product you are trying to update does not exist in our Backend");
+        
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 }

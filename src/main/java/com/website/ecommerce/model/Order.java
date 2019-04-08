@@ -1,62 +1,66 @@
-//package com.website.ecommerce.model;
-//
-//import java.util.List;
-//
-//import javax.persistence.Entity;
-//import javax.persistence.GeneratedValue;
-//import javax.persistence.GenerationType;
-//import javax.persistence.Id;
-//import javax.persistence.JoinColumn;
-//import javax.persistence.OneToOne;
-//import javax.persistence.Table;
-//
-//@Entity
-//@Table(name = "order")
-//public class Order {
-//
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private String orderID;
-//
-//    @OneToOne
-//    @JoinColumn(name = "customerId")
-//    private Customer customer;
-//
-//    private List<Product> orderList;
-//
-//    public String getOrderID() {
-//        return orderID;
-//    }
-//
-//    public void setOrderID(String orderID) {
-//        this.orderID = orderID;
-//    }
-//
-//    public Customer getCustomer() {
-//        return customer;
-//    }
-//
-//    public void setCustomer(Customer customer) {
-//        this.customer = customer;
-//    }
-//
-//    public List<Product> getOrderList() {
-//        return orderList;
-//    }
-//
-//    public void setOrderList(List<Product> orderList) {
-//        this.orderList = orderList;
-//    }
-//
-//    public Order(String orderID, Customer customer, List<Product> orderList) {
-//        super();
-//        this.orderID = orderID;
-//        this.customer = customer;
-//        this.orderList = orderList;
-//    }
-//
-//    public Order() {
-//        super();
-//    }
-//
-//}
+package com.website.ecommerce.model;
+
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+@Entity
+@Table(name = "order")
+public class Order {
+
+    @Id
+    private Integer orderID;
+
+    @Column(name = "email")
+    private String emailId;
+
+    
+    @OneToMany(mappedBy = "order", targetEntity = Cart.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private Set<Cart> items;
+
+    
+    public Set<Cart> getItems() {
+        return items;
+    }
+
+    public void setItems(Set<Cart> items) {
+        this.items = items;
+    }
+
+    public Integer getOrderID() {
+        return orderID;
+    }
+
+    public void setOrderID(Integer orderID) {
+        this.orderID = orderID;
+    }
+
+    public String getEmailId() {
+        return emailId;
+    }
+
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
+    }
+
+    public Order(Integer orderID, String emailId, Set<Cart> items) {
+        super();
+        this.orderID = orderID;
+        this.emailId = emailId;
+        this.items = items;
+    }
+
+    public Order() {
+        super();
+    }
+
+}

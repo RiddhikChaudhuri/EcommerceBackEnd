@@ -40,8 +40,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public boolean checkProductExists(String productName) {
-        return productDao.exists(productName);
+    public boolean checkProductExists(Integer id) {
+        return productDao.findById(id) != null;
     }
 
 }

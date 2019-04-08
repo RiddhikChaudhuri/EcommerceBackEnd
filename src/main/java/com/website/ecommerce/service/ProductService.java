@@ -14,5 +14,5 @@ public interface ProductService {
 
     void deleteProductByID(Integer id);
 
-    boolean checkProductExists(String productName);
+    boolean checkProductExists(Integer id);
 }
